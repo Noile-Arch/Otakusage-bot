@@ -10,6 +10,16 @@ interface QuoteCardProps {
   setShowLanding: (show: boolean) => void;
 }
 
+const formatTimestamp = (timestamp: string) => {
+  const date = new Date(timestamp);
+  const hours = date.getHours().toString().padStart(2, "0");
+  const minutes = date.getMinutes().toString().padStart(2, "0");
+  const seconds = date.getSeconds().toString().padStart(2, "0");
+  const milliseconds = date.getMilliseconds().toString().padStart(3, "0");
+
+  return `SYS.${hours}:${minutes}:${seconds}.${milliseconds}`;
+};
+
 export default function QuoteCard({
   quote,
   character,
@@ -22,21 +32,21 @@ export default function QuoteCard({
   };
 
   return (
-    <div className="relative py-16 px-4">
+    <div className="relative py-8 sm:py-16 px-2 sm:px-4">
       {/* Return to Base Button */}
       <motion.div
         onClick={handleReturn}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="absolute top-0 left-4 flex items-center gap-2 text-cyan-400/80 hover:text-cyan-300 transition-colors group/btn cursor-pointer"
+        className="absolute top-0 left-2 sm:left-4 flex items-center gap-2 text-cyan-400/80 hover:text-cyan-300 transition-colors group/btn cursor-pointer text-xs sm:text-sm"
       >
         <div className="relative">
-          <div className="w-6 h-6 border-2 border-current rounded-full flex items-center justify-center overflow-hidden">
-            <div className="w-2 h-2 bg-current rounded-full group-hover/btn:scale-[2] transition-transform duration-500" />
+          <div className="w-5 h-5 sm:w-6 sm:h-6 border-2 border-current rounded-full flex items-center justify-center overflow-hidden">
+            <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-current rounded-full group-hover/btn:scale-[2] transition-transform duration-500" />
           </div>
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 border border-current rounded-full opacity-0 group-hover/btn:opacity-100 group-hover/btn:scale-150 transition-all duration-500" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-7 h-7 sm:w-8 sm:h-8 border border-current rounded-full opacity-0 group-hover/btn:opacity-100 group-hover/btn:scale-150 transition-all duration-500" />
         </div>
-        <span className="font-mono text-sm tracking-wider relative">
+        <span className="font-mono tracking-wider relative">
           Return to Base
           <span className="absolute bottom-0 left-0 w-0 h-px bg-current group-hover/btn:w-full transition-all duration-300" />
         </span>
@@ -47,16 +57,16 @@ export default function QuoteCard({
         onClick={handleReturn}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="absolute top-0 right-4 flex items-center gap-2 text-cyan-400/80 hover:text-cyan-300 transition-colors group/close cursor-pointer"
+        className="absolute top-0 right-2 sm:right-4 flex items-center gap-2 text-cyan-400/80 hover:text-cyan-300 transition-colors group/close cursor-pointer text-xs sm:text-sm"
       >
-        <span className="font-mono text-sm tracking-wider relative mr-2">
+        <span className="font-mono tracking-wider relative mr-2">
           Close Terminal
           <span className="absolute bottom-0 left-0 w-0 h-px bg-current group-hover/close:w-full transition-all duration-300" />
         </span>
-        <div className="relative w-6 h-6">
+        <div className="relative w-5 h-5 sm:w-6 sm:h-6">
           <div className="absolute inset-0 border-2 border-current rounded-md rotate-0 group-hover/close:rotate-90 transition-transform duration-500 flex items-center justify-center">
-            <div className="w-3 h-0.5 bg-current absolute rotate-45" />
-            <div className="w-3 h-0.5 bg-current absolute -rotate-45" />
+            <div className="w-2.5 h-0.5 sm:w-3 sm:h-0.5 bg-current absolute rotate-45" />
+            <div className="w-2.5 h-0.5 sm:w-3 sm:h-0.5 bg-current absolute -rotate-45" />
           </div>
           <div className="absolute inset-0 border border-current rounded-md opacity-0 group-hover/close:opacity-100 group-hover/close:scale-150 transition-all duration-500" />
         </div>
@@ -67,7 +77,7 @@ export default function QuoteCard({
         animate={{ opacity: 1, y: 0 }}
         whileHover={{ scale: 1.02 }}
         transition={{ duration: 0.3 }}
-        className="relative backdrop-blur-lg bg-gradient-to-br from-black/80 via-black/50 to-blue-950/30 border-2 border-blue-500/30 rounded-xl p-8 max-w-2xl w-full mx-auto shadow-[0_0_15px_rgba(59,130,246,0.2)] hover:shadow-[0_0_50px_rgba(59,130,246,0.4)] transition-all group mt-8"
+        className="relative backdrop-blur-lg bg-gradient-to-br from-black/80 via-black/50 to-blue-950/30 border-2 border-blue-500/30 rounded-xl p-4 sm:p-8 max-w-2xl w-full mx-auto shadow-[0_0_15px_rgba(59,130,246,0.2)] hover:shadow-[0_0_50px_rgba(59,130,246,0.4)] transition-all group mt-8"
       >
         {/* Cyber glow effect */}
         <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500/0 via-blue-500/5 to-blue-500/0 animate-[pulse_4s_ease-in-out_infinite] pointer-events-none" />
@@ -109,29 +119,34 @@ export default function QuoteCard({
         />
 
         {/* Header with enhanced system style */}
-        <div className="flex justify-between items-start mb-6">
+        <div className="flex justify-between items-start mb-4 sm:mb-6">
           <div className="flex items-center gap-2">
-            <div className="w-2 h-2 bg-cyan-400 rounded-full animate-[pulse_1.5s_ease-in-out_infinite] shadow-[0_0_8px_rgba(34,211,238,0.6)]" />
+            <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-cyan-400 rounded-full animate-[pulse_1.5s_ease-in-out_infinite] shadow-[0_0_8px_rgba(34,211,238,0.6)]" />
             <motion.h2
               initial={{ x: -20, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ delay: 0.2 }}
-              className="text-cyan-300 font-mono text-sm tracking-wider uppercase relative group-hover:text-cyan-200"
+              className="text-cyan-300 font-mono text-xs sm:text-sm tracking-wider uppercase relative group-hover:text-cyan-200"
             >
               System Notice
               <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-gradient-to-r from-cyan-400 to-blue-400 group-hover:w-full transition-all duration-500" />
             </motion.h2>
           </div>
           {lastUpdated && (
-            <motion.span
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
-              className="text-xs text-cyan-400/60 font-mono group-hover:text-cyan-400/80 relative"
+              className="text-[10px] sm:text-xs text-cyan-400/60 font-mono group-hover:text-cyan-400/80 relative flex flex-col items-end gap-0.5"
             >
-              {lastUpdated}
+              <span className="text-[8px] sm:text-[10px] text-cyan-400/40 tracking-wider">
+                TIMESTAMP
+              </span>
+              <span className="tracking-wider">
+                {formatTimestamp(lastUpdated)}
+              </span>
               <div className="absolute -bottom-1 left-0 w-full h-[1px] bg-gradient-to-r from-cyan-400/0 via-cyan-400/50 to-cyan-400/0 opacity-0 group-hover:opacity-100 transition-all duration-500" />
-            </motion.span>
+            </motion.div>
           )}
         </div>
 
@@ -142,31 +157,31 @@ export default function QuoteCard({
           transition={{ delay: 0.2 }}
           className="relative"
         >
-          <motion.p className="text-2xl font-medium mb-6 text-white/90 leading-relaxed border-l-4 border-cyan-500/30 pl-4 group-hover:border-cyan-500/50 transition-all duration-500 [text-shadow:0_0_30px_rgba(34,211,238,0.1)]">
+          <motion.p className="text-lg sm:text-2xl font-medium mb-4 sm:mb-6 text-white/90 leading-relaxed border-l-4 border-cyan-500/30 pl-4 group-hover:border-cyan-500/50 transition-all duration-500 [text-shadow:0_0_30px_rgba(34,211,238,0.1)]">
             {quote}
           </motion.p>
           <div className="absolute -left-2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-cyan-500/0 via-cyan-500/50 to-cyan-500/0 group-hover:via-cyan-400/70 shadow-[0_0_8px_rgba(34,211,238,0.4)]" />
         </motion.div>
 
         {/* Attribution with enhanced Solo Leveling style */}
-        <div className="space-y-2 relative">
+        <div className="space-y-1 sm:space-y-2 relative">
           <motion.p
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3 }}
-            className="text-cyan-300 font-bold font-mono tracking-wide group-hover:text-cyan-200 transition-colors duration-500"
+            className="text-cyan-300 font-bold font-mono text-sm sm:text-base tracking-wide group-hover:text-cyan-200 transition-colors duration-500"
           >
             ⟨ {character} ⟩
-            <span className="absolute -left-4 top-1/2 w-2 h-2 bg-cyan-400/30 rounded-full -translate-y-1/2 group-hover:bg-cyan-400/50 transition-all duration-300" />
+            <span className="absolute -left-3 sm:-left-4 top-1/2 w-1.5 sm:w-2 h-1.5 sm:h-2 bg-cyan-400/30 rounded-full -translate-y-1/2 group-hover:bg-cyan-400/50 transition-all duration-300" />
           </motion.p>
           <motion.p
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4 }}
-            className="text-cyan-400/70 text-sm font-mono tracking-wider group-hover:text-cyan-300/70 transition-colors duration-500"
+            className="text-cyan-400/70 text-xs sm:text-sm font-mono tracking-wider group-hover:text-cyan-300/70 transition-colors duration-500"
           >
             《 {anime} 》
-            <span className="absolute -left-3 top-1/2 w-1.5 h-1.5 bg-cyan-400/20 rounded-full -translate-y-1/2 group-hover:bg-cyan-400/40 transition-all duration-300" />
+            <span className="absolute -left-2 sm:-left-3 top-1/2 w-1 sm:w-1.5 h-1 sm:h-1.5 bg-cyan-400/20 rounded-full -translate-y-1/2 group-hover:bg-cyan-400/40 transition-all duration-300" />
           </motion.p>
         </div>
 
