@@ -143,7 +143,8 @@ export default function Home() {
                 quote={quote.quote}
                 character={quote.character}
                 anime={quote.anime}
-                onRefresh={fetchQuote}
+                lastUpdated={lastUpdate}
+                setShowLanding={setShowLanding}
               />
             ) : (
               <div className="text-red-400 font-mono text-center">
