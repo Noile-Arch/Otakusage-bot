@@ -16,14 +16,32 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [showLanding, setShowLanding] = useState(true);
   const [lastUpdate, setLastUpdate] = useState<string>("");
+  const [pollingInterval, setPollingInterval] = useState<NodeJS.Timeout | null>(
+    null
+  );
 
   const fetchQuote = async () => {
     try {
       setLoading(true);
+      if (pollingInterval) {
+        clearInterval(pollingInterval);
+      }
+
       const response = await axios.get("/api/bot");
       if (response.data.success && response.data.data) {
         setQuote(response.data.data);
+        setLastUpdate(response.data.lastUpdate);
       }
+
+      const newInterval = setInterval(async () => {
+        const pollResponse = await axios.get("/api/bot");
+        if (pollResponse.data.lastUpdate !== lastUpdate) {
+          setQuote(pollResponse.data.data);
+          setLastUpdate(pollResponse.data.lastUpdate);
+        }
+      }, 5000);
+
+      setPollingInterval(newInterval);
     } catch (error) {
       console.error("Error fetching quote:", error);
       setQuote(null);
@@ -32,7 +50,6 @@ export default function Home() {
     }
   };
 
-  // Poll for new quotes every 30 seconds
   useEffect(() => {
     if (!showLanding) {
       const interval = setInterval(async () => {
@@ -42,7 +59,10 @@ export default function Home() {
           setLastUpdate(response.data.lastUpdate);
         }
       }, 5000);
-      return () => clearInterval(interval);
+      setPollingInterval(interval);
+      return () => {
+        if (interval) clearInterval(interval);
+      };
     }
   }, [showLanding, lastUpdate]);
 
