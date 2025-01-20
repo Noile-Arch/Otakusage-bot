@@ -62,4 +62,4 @@ MIT License - feel free to use this project for your own purposes.
 
 - Quotes sourced from various anime series
 - Design inspired by cyberpunk aesthetics
-- Built with ❤️ by [Your Name]
+- Built with ❤️ by Elion Kalawa 
