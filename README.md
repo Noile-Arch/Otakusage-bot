@@ -15,7 +15,7 @@ A cyberpunk-themed anime quote generator built with Next.js, featuring real-time
 
 ## 🛠️ Tech Stack
 
-- **Framework**: Next.js 14
+- **Framework**: Next.js 15
 - **Styling**: Tailwind CSS
 - **Animations**: Framer Motion
 - **State Management**: React Hooks
